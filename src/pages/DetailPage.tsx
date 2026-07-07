@@ -10,6 +10,7 @@ import { MenuItem as MenuItemType } from "../types";
 import CheckoutButton from "@/components/CheckoutButton";
 import { UserFormData } from "@/forms/user-profile-form/UserProfileForm";
 import { useCreateCheckoutSession } from "@/api/OrderApi";
+import { Loader2 } from "lucide-react";
 
 export type CartItem = {
   _id: string;
@@ -105,37 +106,52 @@ const DetailPage = () => {
   };
 
   if (isLoading || !restaurant) {
-    return "Loading...";
+    return (
+      <div className="flex flex-col items-center justify-center py-20 gap-4 animate-fade-in">
+        <Loader2 className="h-10 w-10 text-violet-500 animate-spin" />
+        <p className="text-gray-500 font-medium">Loading restaurant...</p>
+      </div>
+    );
   }
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-10 animate-fade-in">
       <AspectRatio ratio={16 / 5}>
-        <img
-          src={restaurant.imageUrl}
-          className="rounded-md object-cover h-full w-full"
-        />
+        <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-xl">
+          <img
+            src={restaurant.imageUrl}
+            className="object-cover h-full w-full"
+            alt={restaurant.restaurantName}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+        </div>
       </AspectRatio>
-      <div className="grid md:grid-cols-[4fr_2fr] gap-5 md:px-32">
-        <div className="flex flex-col gap-4">
+      <div className="grid md:grid-cols-[4fr_2fr] gap-8 md:px-16 lg:px-32">
+        <div className="flex flex-col gap-6">
           <RestaurantInfo restaurant={restaurant} />
-          <span className="text-2xl font-bold tracking-tight">Menu</span>
-          {restaurant.menuItems.map((menuItem) => (
-            <MenuItem
-              menuItem={menuItem}
-              addToCart={() => addToCart(menuItem)}
-            />
-          ))}
+          <h2 className="text-2xl font-bold tracking-tight text-gray-900 flex items-center gap-2">
+            <span className="w-1 h-7 rounded-full gradient-brand inline-block" />
+            Menu
+          </h2>
+          <div className="flex flex-col gap-3">
+            {restaurant.menuItems.map((menuItem) => (
+              <MenuItem
+                key={menuItem._id}
+                menuItem={menuItem}
+                addToCart={() => addToCart(menuItem)}
+              />
+            ))}
+          </div>
         </div>
 
         <div>
-          <Card>
+          <Card className="border border-violet-100 shadow-lg rounded-2xl sticky top-24 overflow-hidden">
             <OrderSummary
               restaurant={restaurant}
               cartItems={cartItems}
               removeFromCart={removeFromCart}
             />
-            <CardFooter>
+            <CardFooter className="p-4">
               <CheckoutButton
                 disabled={cartItems.length === 0}
                 onCheckout={onCheckout}
