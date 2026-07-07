@@ -27,16 +27,22 @@ const PaginationSelector = ({ page, pages, onPageChange }: Props) => {
             <PaginationPrevious
               href="#"
               onClick={() => onPageChange(page - 1)}
+              className="rounded-xl hover:bg-violet-50 hover:text-violet-600 transition-colors duration-200"
             />
           </PaginationItem>
         )}
 
         {pageNumbers.map((number) => (
-          <PaginationItem>
+          <PaginationItem key={number}>
             <PaginationLink
               href="#"
               onClick={() => onPageChange(number)}
               isActive={page === number}
+              className={`rounded-xl transition-all duration-200 ${
+                page === number
+                  ? "gradient-brand text-white shadow-md border-0 hover:opacity-90"
+                  : "hover:bg-violet-50 hover:text-violet-600"
+              }`}
             >
               {number}
             </PaginationLink>
@@ -45,7 +51,11 @@ const PaginationSelector = ({ page, pages, onPageChange }: Props) => {
 
         {page !== pageNumbers.length && (
           <PaginationItem>
-            <PaginationNext href="#" onClick={() => onPageChange(page + 1)} />
+            <PaginationNext
+              href="#"
+              onClick={() => onPageChange(page + 1)}
+              className="rounded-xl hover:bg-violet-50 hover:text-violet-600 transition-colors duration-200"
+            />
           </PaginationItem>
         )}
       </PaginationContent>

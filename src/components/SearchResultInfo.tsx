@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { MapPin } from "lucide-react";
 
 type Props = {
   total: number;
@@ -7,12 +8,16 @@ type Props = {
 
 const SearchResultInfo = ({ total, city }: Props) => {
   return (
-    <div className="text-xl font-bold flex flex-col gap-3 justify-between lg:items-center lg:flex-row">
-      <span>
-        {total} Restaurants found in {city}
+    <div className="text-lg font-bold flex flex-col gap-2 justify-between lg:items-center lg:flex-row">
+      <span className="flex items-center gap-2 text-gray-900">
+        <MapPin className="h-5 w-5 text-violet-500 flex-shrink-0" />
+        <span>
+          {total} Restaurant{total !== 1 ? "s" : ""} found in{" "}
+          <span className="gradient-text">{city}</span>
+        </span>
         <Link
           to="/"
-          className="ml-1 text-sm font-semibold underline cursor-pointer text-blue-500"
+          className="ml-2 text-sm font-semibold text-violet-500 hover:text-violet-600 underline underline-offset-2 transition-colors duration-200"
         >
           Change Location
         </Link>

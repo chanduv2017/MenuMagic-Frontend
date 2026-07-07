@@ -7,6 +7,7 @@ import UserProfileForm, {
   UserFormData,
 } from "@/forms/user-profile-form/UserProfileForm";
 import { useGetMyUser } from "@/api/MyUserApi";
+import { ArrowRight } from "lucide-react";
 
 type Props = {
   onCheckout: (userFormData: UserFormData) => void;
@@ -35,7 +36,10 @@ const CheckoutButton = ({ onCheckout, disabled, isLoading }: Props) => {
 
   if (!isAuthenticated) {
     return (
-      <Button onClick={onLogin} className="bg-orange-500 flex-1">
+      <Button
+        onClick={onLogin}
+        className="gradient-brand text-white flex-1 rounded-full font-bold shadow-md hover:opacity-90 transition-opacity duration-200"
+      >
         Log in to check out
       </Button>
     );
@@ -48,16 +52,20 @@ const CheckoutButton = ({ onCheckout, disabled, isLoading }: Props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button disabled={disabled} className="bg-orange-500 flex-1">
+        <Button
+          disabled={disabled}
+          className="gradient-brand text-white flex-1 rounded-full font-bold shadow-md hover:opacity-90 transition-all duration-200 disabled:opacity-50 group"
+        >
           Go to checkout
+          <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-[425px] md:min-w-[700px] bg-gray-50">
+      <DialogContent className="max-w-[425px] md:min-w-[700px] bg-white/95 backdrop-blur-xl border border-violet-100 rounded-2xl">
         <UserProfileForm
           currentUser={currentUser}
           onSave={onCheckout}
           isLoading={isGetUserLoading}
-          title="Confirm Deliery Details"
+          title="Confirm Delivery Details"
           buttonText="Continue to payment"
         />
       </DialogContent>

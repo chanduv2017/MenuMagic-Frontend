@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem } from "./ui/form";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useEffect } from "react";
@@ -48,14 +48,14 @@ const SearchBar = ({ onSubmit, onReset, placeHolder, searchQuery }: Props) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className={`flex items-center gap-3 justify-between flex-row border-2 rounded-full p-3 ${
-          form.formState.errors.searchQuery && "border-red-500"
+        className={`flex items-center gap-3 justify-between flex-row border-2 rounded-full p-2 md:p-3 bg-white shadow-sm transition-all duration-300 focus-within:shadow-md focus-within:border-violet-300 ${
+          form.formState.errors.searchQuery ? "border-red-400" : "border-violet-100"
         }`}
       >
         <Search
           strokeWidth={2.5}
-          size={30}
-          className="ml-1 text-orange-500 hidden md:block"
+          size={24}
+          className="ml-2 text-violet-400 hidden md:block flex-shrink-0"
         />
         <FormField
           control={form.control}
@@ -65,7 +65,7 @@ const SearchBar = ({ onSubmit, onReset, placeHolder, searchQuery }: Props) => {
               <FormControl>
                 <Input
                   {...field}
-                  className="border-none shadow-none text-xl focus-visible:ring-0"
+                  className="border-none shadow-none text-base md:text-lg focus-visible:ring-0 placeholder:text-gray-400"
                   placeholder={placeHolder}
                 />
               </FormControl>
@@ -73,15 +73,22 @@ const SearchBar = ({ onSubmit, onReset, placeHolder, searchQuery }: Props) => {
           )}
         />
 
+        {onReset && (
+          <Button
+            onClick={handleReset}
+            type="button"
+            variant="ghost"
+            size="sm"
+            className="rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100 px-3"
+          >
+            <X className="h-4 w-4 mr-1" />
+            Reset
+          </Button>
+        )}
         <Button
-          onClick={handleReset}
-          type="button"
-          variant="outline"
-          className="rounded-full"
+          type="submit"
+          className="rounded-full gradient-brand text-white font-semibold px-5 md:px-6 shadow-md hover:opacity-90 transition-opacity duration-200"
         >
-          Reset
-        </Button>
-        <Button type="submit" className="rounded-full bg-orange-500">
           Search
         </Button>
       </form>

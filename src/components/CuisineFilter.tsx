@@ -32,11 +32,13 @@ const CuisineFilter = ({
 
   return (
     <>
-      <div className="flex justify-between items-center px-2">
-        <div className="text-md font-semibold mb-2">Filter By Cuisine</div>
+      <div className="flex justify-between items-center px-1 mb-3">
+        <div className="text-sm font-bold text-gray-900 uppercase tracking-wider">
+          Filter By Cuisine
+        </div>
         <div
           onClick={handleCuisinesReset}
-          className="text-sm font-semibold mb-2 underline cursor-pointer text-blue-500"
+          className="text-xs font-semibold underline underline-offset-2 cursor-pointer text-violet-500 hover:text-violet-600 transition-colors duration-200"
         >
           Reset Filters
         </div>
@@ -48,7 +50,7 @@ const CuisineFilter = ({
           .map((cuisine) => {
             const isSelected = selectedCuisines.includes(cuisine);
             return (
-              <div className="flex">
+              <div className="flex" key={cuisine}>
                 <input
                   id={`cuisine_${cuisine}`}
                   type="checkbox"
@@ -59,13 +61,13 @@ const CuisineFilter = ({
                 />
                 <Label
                   htmlFor={`cuisine_${cuisine}`}
-                  className={`flex flex-1 items-center cursor-pointer text-sm rounded-full px-4 py-2 font-semibold ${
+                  className={`flex flex-1 items-center cursor-pointer text-sm rounded-xl px-4 py-2.5 font-medium transition-all duration-200 ${
                     isSelected
-                      ? "border border-green-600 text-green-600"
-                      : "border border-slate-300"
+                      ? "gradient-brand text-white shadow-sm"
+                      : "border border-violet-100 bg-white text-gray-700 hover:border-violet-300 hover:bg-violet-50"
                   }`}
                 >
-                  {isSelected && <Check size={20} strokeWidth={3} />}
+                  {isSelected && <Check size={16} strokeWidth={3} className="mr-1.5 flex-shrink-0" />}
                   {cuisine}
                 </Label>
               </div>
@@ -74,16 +76,16 @@ const CuisineFilter = ({
 
         <Button
           onClick={onExpandedClick}
-          variant="link"
-          className="mt-4 flex-1"
+          variant="ghost"
+          className="mt-2 flex-1 text-violet-500 hover:text-violet-600 hover:bg-violet-50 rounded-xl font-semibold"
         >
           {isExpanded ? (
-            <span className="flex flex-row items-center">
-              View Less <ChevronUp />
+            <span className="flex flex-row items-center gap-1">
+              View Less <ChevronUp className="h-4 w-4" />
             </span>
           ) : (
-            <span className="flex flex-row items-center">
-              View More <ChevronDown />
+            <span className="flex flex-row items-center gap-1">
+              View More <ChevronDown className="h-4 w-4" />
             </span>
           )}
         </Button>
