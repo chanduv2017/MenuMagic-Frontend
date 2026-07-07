@@ -4,13 +4,18 @@ import MainNav from "./MainNav";
 
 const Header = () => {
   return (
-    <div className="border-b-2 border-b-orange-500 py-6">
-      <div className="container mx-auto flex justify-between items-center">
+    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-violet-100/50 shadow-sm">
+      <div className="container mx-auto flex justify-between items-center py-4 px-4 md:px-6">
         <Link
           to="/"
-          className="text-3xl font-bold tracking-tight text-orange-500"
+          className="flex items-center gap-2 group"
         >
-          MernEats.com
+          <div className="w-9 h-9 rounded-xl gradient-brand flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow duration-300">
+            <span className="text-white font-black text-lg">M</span>
+          </div>
+          <span className="text-2xl font-extrabold tracking-tight gradient-text">
+            MenuMagic
+          </span>
         </Link>
         <div className="md:hidden">
           <MobileNav />
@@ -19,7 +24,7 @@ const Header = () => {
           <MainNav />
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 
