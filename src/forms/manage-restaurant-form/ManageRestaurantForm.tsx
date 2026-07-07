@@ -11,6 +11,7 @@ import LoadingButton from "@/components/LoadingButton";
 import { Button } from "@/components/ui/button";
 import { Restaurant } from "@/types";
 import { useEffect } from "react";
+import { Save } from "lucide-react";
 
 const formSchema = z
   .object({
@@ -126,16 +127,26 @@ const ManageRestaurantForm = ({ onSave, isLoading, restaurant }: Props) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 bg-gray-50 p-10 rounded-lg"
+        className="space-y-8 bg-white border border-violet-50 p-6 md:p-10 rounded-2xl shadow-sm"
       >
         <DetailsSection />
-        <Separator />
+        <Separator className="bg-violet-100" />
         <CuisinesSection />
-        <Separator />
+        <Separator className="bg-violet-100" />
         <MenuSection />
-        <Separator />
+        <Separator className="bg-violet-100" />
         <ImageSection />
-        {isLoading ? <LoadingButton /> : <Button type="submit">Submit</Button>}
+        {isLoading ? (
+          <LoadingButton />
+        ) : (
+          <Button
+            type="submit"
+            className="gradient-brand text-white font-bold rounded-full px-8 shadow-md hover:opacity-90 transition-opacity duration-200"
+          >
+            <Save className="h-4 w-4 mr-2" />
+            Submit
+          </Button>
+        )}
       </form>
     </Form>
   );

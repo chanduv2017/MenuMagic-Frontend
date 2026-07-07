@@ -12,10 +12,13 @@ const CuisinesSection = () => {
   const { control } = useFormContext();
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-4">
       <div>
-        <h2 className="text-2xl font-bold">Cuisines</h2>
-        <FormDescription>
+        <h2 className="text-2xl font-extrabold text-gray-900 flex items-center gap-2">
+          <span className="w-1 h-7 rounded-full gradient-brand inline-block" />
+          Cuisines
+        </h2>
+        <FormDescription className="mt-1 text-gray-500">
           Select the cuisines that your restaurant serves
         </FormDescription>
       </div>
@@ -24,9 +27,9 @@ const CuisinesSection = () => {
         name="cuisines"
         render={({ field }) => (
           <FormItem>
-            <div className="grid md:grid-cols-5 gap-1">
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2">
               {cuisineList.map((cuisineItem) => (
-                <CuisineCheckbox cuisine={cuisineItem} field={field} />
+                <CuisineCheckbox key={cuisineItem} cuisine={cuisineItem} field={field} />
               ))}
             </div>
             <FormMessage />
